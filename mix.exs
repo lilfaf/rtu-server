@@ -38,7 +38,8 @@ defmodule Rtu.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:httpoison, "~> 0.9.0"}]
+     {:httpoison, "~> 0.9.0"},
+     {:floki, "~> 0.10.1"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

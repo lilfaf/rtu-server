@@ -1,22 +1,41 @@
 defmodule Rtu.Observer do
   use GenServer
-  alias Rtu.Clients.Rtu
+
+  require Logger
+
+  alias Rtu.Client
+  alias Rtu.CurrentTrack
+  alias Rtu.Track
 
   def start_link do
     GenServer.start_link(__MODULE__, %{})
   end
 
   def init(state) do
-    schedule_work()
+    schedule_work
     {:ok, state}
   end
 
   def handle_info(:work, state) do
-    Rtu.playing |> schedule_work
+    Client.playing |> schedule_work
     {:noreply, state}
   end
 
-  defp schedule_work(), do: schedule_work(:ok)
+  defp schedule_work, do: schedule_work(:ok)
+
+  defp schedule_work({:error, %Client.Error{message: message}}) do
+    Logger.error(message)
+    schedule_work(:error)
+  end
+
+  defp schedule_work({:ok, %Track{} = track}) do
+    unless CurrentTrack.get == track do
+      Logger.debug(track)
+      CurrentTrack.set(track)
+    end
+    schedule_work
+  end
+
   defp schedule_work(state) do
     Process.send_after(self(), :work, work_delay(state))
   end
