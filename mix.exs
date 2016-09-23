@@ -39,7 +39,8 @@ defmodule Rtu.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.9.0"},
-     {:floki, "~> 0.10.1"}]
+     {:floki, "~> 0.10.1"},
+     {:poison, "~> 2.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

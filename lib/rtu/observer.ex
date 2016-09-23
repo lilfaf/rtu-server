@@ -6,6 +6,7 @@ defmodule Rtu.Observer do
   alias Rtu.Client
   alias Rtu.CurrentTrack
   alias Rtu.Track
+  alias Rtu.Hydrator
 
   def start_link do
     GenServer.start_link(__MODULE__, %{})
@@ -32,6 +33,7 @@ defmodule Rtu.Observer do
     unless CurrentTrack.get == track do
       Logger.debug(track)
       CurrentTrack.set(track)
+      Hydrator.run
     end
     schedule_work
   end

@@ -14,8 +14,9 @@ defmodule Rtu do
       supervisor(Rtu.Endpoint, []),
       # Start your own worker by calling: Rtu.Worker.start_link(arg1, arg2, arg3)
       # worker(Rtu.Worker, [arg1, arg2, arg3]),
-      worker(Rtu.Observer, []),
-      worker(Rtu.CurrentTrack, [])
+      worker(Rtu.CurrentTrack, []),
+      worker(Rtu.Hydrator, []),
+      worker(Rtu.Observer, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
