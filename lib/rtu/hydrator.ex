@@ -3,6 +3,10 @@ defmodule Rtu.Hydrator do
 
   require Logger
 
+  alias Rtu.Clients.API
+  alias Rtu.Parser
+  alias Rtu.CurrentTrack
+
   @providers [:deezer, :soundcloud, :youtube]
 
   def start_link do
@@ -14,17 +18,19 @@ defmodule Rtu.Hydrator do
   def handle_call(:work, _from, state) do
     Logger.debug("Searching for metadatas")
     search_metadatas(@providers)
+    Logger.debug("Job completed successfully")
     { :reply, %{}, state }
   end
 
   defp search_metadatas([]), do: nil
 
   defp search_metadatas([h|tail]) do
-    case Rtu.Clients.API.search(h) do
+    case API.search(h) do
       {:ok, body} ->
-        Rtu.Parser.parse(body)
-      _ ->
-        Logger.debug("API request failed")
+        Parser.parse(body)
+        |> CurrentTrack.append_metadatas
+      {:error, reason} ->
+        Logger.error("#{h} API request failed: #{reason}")
     end
     search_metadatas(tail)
   end

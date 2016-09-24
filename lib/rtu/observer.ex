@@ -30,7 +30,7 @@ defmodule Rtu.Observer do
   end
 
   defp schedule_work({:ok, %Track{} = track}) do
-    unless CurrentTrack.get == track do
+    unless CurrentTrack.get.title == track.title do
       Logger.debug("Currently tuned: #{track}")
       CurrentTrack.set(track)
       Hydrator.run
