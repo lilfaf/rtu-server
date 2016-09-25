@@ -18,7 +18,7 @@ defmodule Rtu.Hydrator do
   def handle_call(:work, _from, state) do
     Logger.debug("Searching for metadatas")
     search_metadatas(@providers)
-    Logger.debug("Job completed successfully")
+    Logger.debug("Done searching !")
     { :reply, %{}, state }
   end
 

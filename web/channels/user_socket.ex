@@ -2,7 +2,7 @@ defmodule Rtu.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Rtu.RoomChannel
+  channel "track:*", Rtu.TrackChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

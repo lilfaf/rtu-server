@@ -43,6 +43,8 @@ defmodule Rtu.Parser do
     }
   end
 
+  defp map_to_struct(nil, :soundcloud), do: nil
+
   defp map_to_struct(data, :soundcloud) do
     %Metadata{
       cover:    String.replace(data.artwork_url, "large", "t500x500"),
