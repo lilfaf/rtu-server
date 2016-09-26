@@ -22,7 +22,7 @@ defmodule Rtu.Observer do
     {:noreply, state}
   end
 
-  defp schedule_work, do: schedule_work(:ok)
+  defp schedule_work, do: schedule_work(:now)
 
   defp schedule_work({:error, %Client.Error{message: message}}) do
     Logger.error(message)
@@ -36,14 +36,15 @@ defmodule Rtu.Observer do
       Hydrator.run
       Rtu.Endpoint.broadcast!("track:*", "new_track", CurrentTrack.get)
     end
-    schedule_work
+    schedule_work(:ok)
   end
 
   defp schedule_work(state) do
     Process.send_after(self(), :work, work_delay(state))
   end
 
-  defp work_delay(:ok), do: 3000
-  defp work_delay(:error), do: 10_000
+  defp work_delay(:now), do: 0
+  defp work_delay(:ok), do: 10_000
+  defp work_delay(:error), do: 30_000
   defp work_delay(state), do: work_delay(state)
 end

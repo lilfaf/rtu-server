@@ -1,6 +1,5 @@
 defmodule Rtu.Client do
   use HTTPoison.Base
-
   alias Rtu.Track
 
   defmodule Error do
@@ -23,6 +22,8 @@ defmodule Rtu.Client do
         title  = element_text(body, "b")
         artist = element_text(body, "p")
         {:ok, %Track{title: title, artist: artist}}
+      {:ok, %HTTPoison.Response{status_code: 503}} ->
+        {:error, %Error{message: "Service temporarily unavailable..."}}
       _ ->
         {:error, %Error{}}
     end
