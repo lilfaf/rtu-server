@@ -13,7 +13,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :rtu, Rtu.Endpoint,
   http: [port: 8888],
-  url: [host: "example.com"],
+  url: [host: "54.154.142.114"],
   root: ".",
   cache_static_manifest: "priv/static/manifest.json",
   server: true,
