@@ -19,7 +19,7 @@ defmodule Rtu.Mixfile do
   def application do
     [mod: {Rtu, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :httpoison]]
+                    :phoenix_ecto, :postgrex, :httpoison, :floki]]
   end
 
   # Specifies which paths to compile per environment.
@@ -41,7 +41,8 @@ defmodule Rtu.Mixfile do
      {:httpoison, "~> 0.9.0"},
      {:floki, "~> 0.10.1"},
      {:poison, "~> 2.0"},
-     {:credo, "~> 0.4", only: [:dev, :test]}]
+     {:credo, "~> 0.4", only: [:dev, :test]},
+     {:exrm, "~> 1.0.8"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
