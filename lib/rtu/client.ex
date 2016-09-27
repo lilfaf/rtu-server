@@ -30,7 +30,8 @@ defmodule Rtu.Client do
   end
 
   defp element_text(body , tag) do
-    Floki.find(body, tag)
+    body
+    |> Floki.find(tag)
     |> Floki.text
     |> String.trim
   end

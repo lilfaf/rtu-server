@@ -19,7 +19,7 @@ defmodule Rtu.Hydrator do
     Logger.debug("Searching for metadatas")
     search_metadatas(@providers)
     Logger.debug("Done searching !")
-    { :reply, %{}, state }
+    {:reply, %{}, state}
   end
 
   defp search_metadatas([]), do: nil
@@ -27,7 +27,8 @@ defmodule Rtu.Hydrator do
   defp search_metadatas([h|tail]) do
     case API.search(h) do
       {:ok, body} ->
-        Parser.parse(body)
+        body
+        |> Parser.parse
         |> CurrentTrack.append_metadatas
       {:error, reason} ->
         Logger.error("#{h} API request failed: #{reason}")

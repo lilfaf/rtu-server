@@ -6,7 +6,8 @@ defmodule Rtu.Clients.Soundcloud do
   end
 
   def search(%Rtu.Track{} = track) do
-    get("search", search_params(track))
+    "search"
+    |> get(search_params(track))
     |> handle_response
   end
 

@@ -40,7 +40,8 @@ defmodule Rtu.Mixfile do
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.9.0"},
      {:floki, "~> 0.10.1"},
-     {:poison, "~> 2.0"}]
+     {:poison, "~> 2.0"},
+     {:credo, "~> 0.4", only: [:dev, :test]}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

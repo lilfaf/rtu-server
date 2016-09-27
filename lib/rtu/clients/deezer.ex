@@ -6,7 +6,8 @@ defmodule Rtu.Clients.Deezer do
   end
 
   def search(%Rtu.Track{title: title, artist: artist}) do
-    get("search", [q: "track:'#{title}' artist:'#{artist}'"])
+    "search"
+    |> get([q: "track:'#{title}' artist:'#{artist}'"])
     |> handle_response
   end
 end
