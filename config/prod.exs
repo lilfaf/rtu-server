@@ -13,14 +13,22 @@ use Mix.Config
 # which you typically run after static files are built.
 config :rtu, Rtu.Endpoint,
   http: [port: 8888],
-  url: [host: "54.154.142.114"],
+  url: [scheme: "https", host: "mysterious-meadow-6277.herokuapp.com", port: 443], force_ssl: [rewrite_on: [:x_forwarded_proto]],
   root: ".",
   cache_static_manifest: "priv/static/manifest.json",
   server: true,
-  version: Mix.Project.config[:version]
+  version: Mix.Project.config[:version],
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+# Configure your database
+config :rtu, Rtu.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
 
 # ## SSL Support
 #
@@ -61,4 +69,4 @@ config :phoenix, :serve_endpoints, true
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
