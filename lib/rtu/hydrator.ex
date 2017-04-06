@@ -16,9 +16,9 @@ defmodule Rtu.Hydrator do
   def run, do: GenServer.call(__MODULE__, :work)
 
   def handle_call(:work, _from, state) do
-    Logger.debug("Searching for metadatas")
+    Logger.info("Searching for metadatas...")
     search_metadatas(@providers)
-    Logger.debug("Done searching !")
+    Logger.info("Done searching !")
     {:reply, %{}, state}
   end
 

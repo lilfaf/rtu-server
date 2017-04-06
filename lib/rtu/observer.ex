@@ -31,7 +31,7 @@ defmodule Rtu.Observer do
 
   defp schedule_work({:ok, %Track{} = track}) do
     unless CurrentTrack.get.title == track.title do
-      Logger.debug("Track changed: #{track}")
+      Logger.info("Track changed: #{track}")
       CurrentTrack.set(track)
       Hydrator.run
       Rtu.Endpoint.broadcast!("track:*", "new_track", CurrentTrack.get)

@@ -6,7 +6,7 @@ defmodule Rtu.Parser do
   def parse(%{data: [], total: 0}), do: nil
 
   def parse(%{data: data}) do
-    Logger.debug("Parsing Deezer data")
+    Logger.info("Parsing Deezer data...")
     data
     |> List.first
     |> map_to_struct(:deezer)
@@ -15,7 +15,7 @@ defmodule Rtu.Parser do
   def parse(%{collection: [], total_results: 0}), do: nil
 
   def parse(%{collection: data}) do
-    Logger.debug("Parsing Soundcloud data")
+    Logger.info("Parsing Soundcloud data...")
     data
     |> Enum.reject(fn(item) -> empty_artwork_url(item) end)
     |> List.first
@@ -25,7 +25,7 @@ defmodule Rtu.Parser do
   def parse(%{items: [], pageInfo: %{totalResults: 0}}), do: nil
 
   def parse(%{items: data}) do
-    Logger.debug("Parsing Youtube data")
+    Logger.info("Parsing Youtube data...")
     data
     |> List.first
     |> map_to_struct(:youtube)
